@@ -21,7 +21,7 @@ class AppKernel extends Kernel
                                         //forma apagamos o registro deste bundle no AppKernel
                                         //Vamos configurar um bundle do zero ao invés de configurar um já pronto, por isso 
                                         //excluímos a pasta padrão AppBundle com os arquivos dentro.,
-            // new ModelBundle\ModelBundle(),
+            new ModelBundle\ModelBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

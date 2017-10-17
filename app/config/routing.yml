@@ -1,3 +1,11 @@
+model_post:
+    resource: "@ModelBundle/Controller/PostController.php"
+    type:     annotation
+
+model_bundle: # adicionamos esta rota somente para vermos a aplicação rodando
+    resource: "@ModelBundle/Controller/"
+    type:     annotation
+    prefix:   /
 
 ######## Não queremos que o symfony crie a rota para este Bundle, por isso a removeremos......
 # model:
@@ -9,6 +17,11 @@ core:
     resource: "@CoreBundle/Controller/"
     type:     annotation
     prefix:   /
+
+# model:
+#     resource: "@ModelBundle/Controller/"
+#     type:     annotation
+#     prefix:   /model
 
 ### Devemos excluir a rota do bundle que apagamos:
 
