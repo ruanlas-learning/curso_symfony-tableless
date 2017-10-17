@@ -15,7 +15,13 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
+            new CoreBundle\CoreBundle(),
+            //new AppBundle\AppBundle(),
+                                        // -> "apagamos" esta linha pois escluímos a pasta AppBundle, no caminho scr/AppBundle. Desta
+                                        //forma apagamos o registro deste bundle no AppKernel
+                                        //Vamos configurar um bundle do zero ao invés de configurar um já pronto, por isso 
+                                        //excluímos a pasta padrão AppBundle com os arquivos dentro.,
+            // new ModelBundle\ModelBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

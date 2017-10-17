@@ -7,6 +7,9 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
 
+    session: # foi necessário inserir esta 'session' para mudar a pasta padrão de armazenamento (segundo stackOverflow)
+        save_path: '/tmp'
+
 web_profiler:
     toolbar: true
     intercept_redirects: false

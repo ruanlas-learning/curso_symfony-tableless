@@ -1,3 +1,17 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+
+######## Não queremos que o symfony crie a rota para este Bundle, por isso a removeremos......
+# model:
+#     resource: "@ModelBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
+
+core:
+    resource: "@CoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+### Devemos excluir a rota do bundle que apagamos:
+
+# app:
+#     resource: '@AppBundle/Controller/'
+#     type: annotation
