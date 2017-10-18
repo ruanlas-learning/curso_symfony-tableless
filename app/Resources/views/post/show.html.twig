@@ -17,13 +17,15 @@
                 <th>Content</th>
                 <td>{{ post.content }}</td>
             </tr>
+            {#{{ dump(post) }}#}
             <tr>
                 <th>Createdat</th>
-                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if post.createdAt is defined %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Updateat</th>
-                <td>{% if post.updateAt %}{{ post.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if post.updateAt is defined %}{{ post.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {# o 'is defined' verifica se a variável ou o campo existe  #}
             </tr>
         </tbody>
     </table>

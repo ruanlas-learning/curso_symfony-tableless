@@ -1,3 +1,7 @@
+model_author:
+    resource: "@ModelBundle/Controller/AuthorController.php"
+    type:     annotation
+
 model_post:
     resource: "@ModelBundle/Controller/PostController.php"
     type:     annotation

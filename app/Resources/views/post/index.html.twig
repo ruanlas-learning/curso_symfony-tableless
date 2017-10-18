@@ -20,8 +20,10 @@
                 <td><a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.content }}</td>
-                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if post.updateAt %}{{ post.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {#{{ dump(post) }}#}
+                <td>{% if post.createdAt is defined %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {#o atributo 'is defined' verifica se a variável existe, ou seja, se foi passado para o controller #}
+                <td>{% if post.updateAt is defined %}{{ post.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>
