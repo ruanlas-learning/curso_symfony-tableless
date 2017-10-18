@@ -1,11 +1,12 @@
 <?php
 
-namespace ModelBundle\Controller;
+namespace CoreBundle\Controller;
 
 use ModelBundle\Entity\Author;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Author controller.

@@ -8,6 +8,7 @@ use ModelBundle\Entity\Timestampable; //faz o 'import' da classe Constraints do 
                                                     //Este import permitirá utilizar a notação para não permitir campos nulos
                                                     //em alguns atributos
 
+//A anotação '@ORM\Entity(repositoryClass="ModelBundle\Repository\PostRepository")' abaixo indica onde está a classe PostRepository
 /**
  * Post
  *
