@@ -3,11 +3,32 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/core/css/bootstrap.min.css') }}" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <div class="container">
+                <header class="row">
+                    <div class="col-lg-6">
+                        <h1>Simples Blog</h1>
+                        <a href="{{ path('index') }}" title="">Home</a> |  {# pegamos o link da home com o "{{ path('index') }}" #}
+                        <a href="{{ path('post') }}" title="">administração</a>
+                    </div>
+                </header>
+            {# novo bloco criado #}
+            {% block content %}
+
+            {% endblock %}
+
+                <footer class="col-lg-12">
+                    <p>© 2015 Tableless - Todos os direitos reservados</p>
+                </footer>
+            </div>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
