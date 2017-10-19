@@ -12,6 +12,8 @@
 
                 <h1>{{ post.title }}</h1>
 
+                <img class="img-responsive" src="{{ asset( post.getCoverWeb ) }}" alt="{{ post.cover }}" title="{{ post.cover }}"/>
+
                 <p>Escrito por: {{ post.author.name }}</p>
 
                 <p>Postado em: {{ post.createdAt | date('d/m/Y - H:m:s') }}</p>

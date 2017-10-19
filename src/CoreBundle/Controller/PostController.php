@@ -45,6 +45,8 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->upload(); //Para que nossos formulários de posts tenham acesso ao upload,
+            //temos que configurar o controller com este trecho acima
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -87,6 +89,8 @@ class PostController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $post->upload(); //Para que nossos formulários de posts tenham acesso ao upload,
+            //temos que configurar o controller com este trecho acima (faremos o mesmo aqui tbm)
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('post_edit', array('id' => $post->getId()));
