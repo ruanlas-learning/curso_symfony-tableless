@@ -22,6 +22,9 @@ class AppKernel extends Kernel
                                         //Vamos configurar um bundle do zero ao invés de configurar um já pronto, por isso 
                                         //excluímos a pasta padrão AppBundle com os arquivos dentro.,
             new ModelBundle\ModelBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(), //Como acabamos de instalar o Knp Paginator, devemos
+            // configurá-lo. Para isto devemos registrar ele neste arquivo 'AppKernel.php' no registro de $bundles
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
