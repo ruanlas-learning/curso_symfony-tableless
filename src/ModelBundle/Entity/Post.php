@@ -4,10 +4,13 @@ namespace ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use ModelBundle\Entity\Timestampable; //faz o 'import' da classe Constraints do Symfony, dando o apelido de Assert
+                                 //faz o 'import' da classe Constraints do Symfony, dando o apelido de Assert
                                                     //Este import permitirá utilizar a notação para não permitir campos nulos
                                                     //em alguns atributos
+use ModelBundle\Entity\Timestampable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo; //Vamos configurar nossa entidade post, para que a mesma receba os slugs
+// 'slug' == links permanentes que o blog terá para cada parte, sejam artigos, categorias, tags e páginas estáticas
 
 //A anotação '@ORM\Entity(repositoryClass="ModelBundle\Repository\PostRepository")' abaixo indica onde está a classe PostRepository
 /**
@@ -69,6 +72,17 @@ class Post extends Timestampable
      * @Assert\File(maxSize="1000000")
      */
     private $file; //este atributo receberá o arquivo da imagem como um limite de tamanho
+
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"title"}, unique=false)
+     * @ORM\Column(length=255)
+     */
+    private $slug; //criamos essa propriedade privada com as anotações acima para armazenar os slugs dos posts
+
+
 
 
     //Getter e setter dos atributos acima ($cover e $file)
@@ -357,5 +371,29 @@ class Post extends Timestampable
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

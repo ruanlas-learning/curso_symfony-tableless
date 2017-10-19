@@ -20,7 +20,9 @@
 
                     <div class="thumbnail">
 
-                        <a href="{{ path('show', { 'id': post.id }) }}">
+                        {#<a href="{{ path('show', { 'id': post.id }) }}">#}
+
+                        <a href="{{ path('show', { slug: post.slug }) }}"> {#  substituimos todos os id's pelo slug #}
 
                             <img class="img-responsive" src="{{ asset( post.getCoverWeb ) }}" alt="{{ post.cover }}" title="{{ post.cover }}"/>
 
@@ -28,13 +30,13 @@
 
                         <div class="caption">
 
-                            <h3><a href="{{ path('show', { 'id': post.id }) }}">{{ post.title }}</a></h3>
+                            <h3><a href="{# {{ path('show', { 'id': post.id }) }} #} {{ path('show', { slug: post.slug }) }}">{{ post.title }}</a></h3>
 
                             <p>Escrito por: {{ post.author.name }}</p>
 
                             <p>{{ post.content|slice(0, 45) }} ...</p>  {# o 'slice(0, 45)' corta o texto começando do 0 até 45 caracteres #}
 
-                            <p><a href="{{ path('show', { 'id': post.id }) }}">Leia mais...</a></p>
+                            <p><a href="{# {{ path('show', { 'id': post.id }) }} #} {{ path('show', { slug: post.slug }) }}">Leia mais...</a></p>
 
                         </div>
 

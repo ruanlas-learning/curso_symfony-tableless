@@ -4,10 +4,15 @@ namespace ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use ModelBundle\Entity\Timestampable; //faz o 'import' da classe Constraints do Symfony, dando o apelido de Assert
+                                 //faz o 'import' da classe Constraints do Symfony, dando o apelido de Assert
                                                     //Este import permitirá utilizar a notação para não permitir campos nulos
                                                     //em alguns atributos
+use ModelBundle\Entity\Timestampable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo; //Vamos configurar nossa entidade post, para que a mesma receba os slugs
+// 'slug' == links permanentes que o blog terá para cada parte, sejam artigos, categorias, tags e páginas estáticas
 
+//A anotação '@ORM\Entity(repositoryClass="ModelBundle\Repository\PostRepository")' abaixo indica onde está a classe PostRepository
 /**
  * Post
  *
@@ -54,6 +59,152 @@ class Post extends Timestampable
      * @Assert\NotBlank
      */
     private $author;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     */
+    private $cover; //este atributo receberá o nome da imagem
+
+    /**
+     * @Assert\File(maxSize="1000000")
+     */
+    private $file; //este atributo receberá o arquivo da imagem como um limite de tamanho
+
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"title"}, unique=false)
+     * @ORM\Column(length=255)
+     */
+    private $slug; //criamos essa propriedade privada com as anotações acima para armazenar os slugs dos posts
+
+
+
+
+    //Getter e setter dos atributos acima ($cover e $file)
+    /**
+     * Get cover
+     *
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * Set cover
+     *
+     * @param string $cover
+     * @return Image
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null) //O setFile receberá um parâmetro $file, esse parâmetro
+        // será do tipo UploadedFile, e caso não passamos uma imagem, poderá ser nulo
+    {
+        $this->file = $file;
+    }
+
+
+    /**
+     * Relative path.
+     * Get web path to upload directory.
+     *
+     * @return string
+     */
+    protected function getUploadPath()
+    {
+        //Precisamos obter o caminho relativo do upload, ou seja, a pasta para onde as imagens serão enviadas;
+        // para isso vamos criar o método protegido getUploadPath(), que nos retornará essa pasta
+        return 'uploads/covers';
+    }
+
+    /**
+     * Absolute path.
+     * Get absolute path to upload directory.
+     *
+     * @return string
+     */
+    protected function getUploadAbsolutePath()
+    {
+        //Temos que obter o caminho absoluto, para fazer o upload de nossas imagens, que ficará na pasta web,
+        // para isso vamos criar o método protegido getUploadAbsolutePath(), que nos retornará o caminho absoluto,
+        // e para chegarmos na pasta “uploads/covers”, vamos concatenar com o método getUploadPath() criado acima
+        return __DIR__ . '/../../../web/' . $this->getUploadPath();
+    }
+
+    /**
+     * Relative path.
+     * Get web path to a cover.
+     *
+     * @return null|string
+     */
+    public function getCoverWeb()
+    {
+        //Agora precisamos apresentar o caminho de nossas imagens para as views, vamos criar o método
+        //público getCoverWeb(), caso tenhamos uma imagem, ou seja, caso a imagem não seja nula, apresentamos a
+        // imagem nas views, para isso usaremos o método getUploadPath(), concatenado com o nome de nossa imagem,
+        // ou seja o método getCover()
+        return null === $this->getCover()
+            ? null
+            : $this->getUploadPath() . '/' . $this->getCover();
+    }
+
+    /**
+     * Get path on disk to a cover.
+     *
+     * @return null|string
+     *   Absolute path.
+     */
+    public function getCoverAbsolute()
+    {
+        //Podemos precisar do caminho absoluto de nossa imagem, para isso vamos criar o método getCoverAbsolute(),
+        // para obtermos esse caminho quando precisarmos
+        return null === $this->getCover()
+            ? null
+            : $this->getUploadAbsolutePath() . '/' . $this->getCover();
+    }
+
+    /**
+     * Upload a cover file.
+     */
+    public function upload()
+    {
+        //Agora criamos um método que fará o upload da imagem, para isso, criamos um método como nome upload(),
+        // caso a imagem não seja nula, ele fará o upload usando alguns métodos prontos da classe UploadedFile,
+        // para mover a imagens
+        if (null === $this->getFile()) {
+            return;
+        }
+        $filename = $this->getFile()->getClientOriginalName();
+        $this->getFile()->move($this->getUploadAbsolutePath(), $filename);
+        $this->setCover($filename);
+        $this->setFile();
+    }
+
 
 //    Não precisamos mais do conteúdo abaixo, já que esta classe está herdando
 //da Classe Abstrata Timestampable
@@ -197,5 +348,28 @@ class Post extends Timestampable
 //    {
 //        return $this->updateAt;
 //    }
-}
 
+    /**
+     * Set author
+     *
+     * @param \ModelBundle\Entity\Author $author
+     *
+     * @return Post
+     */
+    public function setAuthor(\ModelBundle\Entity\Author $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \ModelBundle\Entity\Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+}

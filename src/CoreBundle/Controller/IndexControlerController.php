@@ -44,10 +44,10 @@ class IndexControlerController extends Controller
     }
 
     /**
-     * @Route("/show/{id}", name="show")
+     * @Route("/show/{slug}", name="show") //trocamos de 'id' para 'slug'
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($slug) //trocamos de '$id' para '$slug'
     {
 //        return $this->render('CoreBundle:IndexControler:show.html.twig', array(
 //            // ...
@@ -55,7 +55,10 @@ class IndexControlerController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $post = $em->getRepository('ModelBundle:Post')->find($id);
+        //$post = $em->getRepository('ModelBundle:Post')->find($id);  //=> neste método estamos passando para a
+                        // variável $post, o método find, e recuperando o id. Vamos substituir o find para
+                                                                //findOneBy e passar um array de slug. Vejamos abaixo:
+        $post = $em->getRepository('ModelBundle:Post')->findOneBy(['slug' => $slug ]);
 
         if (!$post) {
             throw $this->createNotFoundException('O post não existe! Volte para home!');

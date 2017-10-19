@@ -26,7 +26,8 @@
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev||^2.6"
+        "knplabs/knp-paginator-bundle": "2.4.*@dev||^2.6",
+        "stof/doctrine-extensions-bundle": "1.2.*@dev"
 
     },
     "require-dev": {

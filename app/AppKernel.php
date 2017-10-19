@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new ModelBundle\ModelBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(), //Como acabamos de instalar o Knp Paginator, devemos
             // configurá-lo. Para isto devemos registrar ele neste arquivo 'AppKernel.php' no registro de $bundles
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(), //Instalamos o StofDoctrineExtensionsBundle e
+                                                                                // devemos registrar no AppKernel.php em $bundles
 
         ];
 
