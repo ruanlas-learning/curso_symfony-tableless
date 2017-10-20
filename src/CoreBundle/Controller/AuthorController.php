@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Author controller.
@@ -40,6 +41,13 @@ class AuthorController extends Controller
      */
     public function newAction(Request $request)
     {
+//////////////////////  atribui a regra de adm
+        $securityContext = $this->get('security.authorization_checker');
+
+        if (!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException(" Somente o administrador pode acessar! ");
+        }
+/////////////////////
         $author = new Author();
         $form = $this->createForm('ModelBundle\Form\AuthorType', $author);
         $form->handleRequest($request);
@@ -82,6 +90,15 @@ class AuthorController extends Controller
      */
     public function editAction(Request $request, Author $author)
     {
+
+//////////////////////  atribui a regra de adm
+        $securityContext = $this->get('security.authorization_checker');
+
+        if (!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException(" Somente o administrador pode acessar! ");
+        }
+/////////////////////
+
         $deleteForm = $this->createDeleteForm($author);
         $editForm = $this->createForm('ModelBundle\Form\AuthorType', $author);
         $editForm->handleRequest($request);
@@ -107,6 +124,14 @@ class AuthorController extends Controller
      */
     public function deleteAction(Request $request, Author $author)
     {
+
+//////////////////////  atribui a regra de adm
+        $securityContext = $this->get('security.authorization_checker');
+
+        if (!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException(" Somente o administrador pode acessar! ");
+        }
+/////////////////////
         $form = $this->createDeleteForm($author);
         $form->handleRequest($request);
 

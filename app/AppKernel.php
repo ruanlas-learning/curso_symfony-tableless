@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             // configurá-lo. Para isto devemos registrar ele neste arquivo 'AppKernel.php' no registro de $bundles
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(), //Instalamos o StofDoctrineExtensionsBundle e
                                                                                 // devemos registrar no AppKernel.php em $bundles
+            new FOS\UserBundle\FOSUserBundle(), //Após instalado o pacote FOSUserBundle, devemos registrar aqui em $bundles
 
         ];
 
